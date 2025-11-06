@@ -30,6 +30,19 @@ def sensor():
         #Create a cursor to execute SQL queries
         cursor = connection.cursor()
 
+# Example query
+        cursor.execute("SELECT NOW();")
+        result = cursor.fetchone()
+        print("Current Time:", result)
+    
+        # Close the cursor and connection
+        cursor.close()
+        connection.close()
+        return f"Current Time {result}."
+    
+    except Exception as e:
+        return f"Failed to connect: {e}"
+
 
 
 
