@@ -3,7 +3,7 @@ import psycopg2
 import os
 
 # ❌ LÍNEA CORREGIDA: Comentamos load_dotenv()
-# load_dotenv() 
+load_dotenv() 
 # Si esta línea estuviera activa, podría cargar un archivo .env local
 # que contenga una conexión de "socket" o "localhost" incorrecta,
 # lo cual es incompatible con el entorno de Vercel.
