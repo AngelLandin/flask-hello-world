@@ -6,7 +6,7 @@ import os
 load_dotenv()
 
 # Fetch variables
-CONNECTION_STRING = os.getenv("CONN_STRING")
+CONNECTION_STRING = os.getenv("COIN_STRING")
 
 app = Flask(__name__)
 
