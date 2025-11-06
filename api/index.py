@@ -1,48 +1,30 @@
 from flask import Flask
 import psycopg2
-from dotenv import load_dotenv
 import os
-
 load_dotenv()
-
-# Fetch variables
-CONNECTION_STRING = os.getenv("COIN_STRING")
 
 app = Flask(__name__)
 
+CONNECTION_STRING = os.getenv("COIN_STRING")
+
 def get_connection():
+    if not CONNECTION_STRING:
+        raise Exception("CONN_STRING not found in environment variables.")
     return psycopg2.connect(CONNECTION_STRING)
 
 @app.route('/')
 def home():
-    return 'Hello, World!'
-
-@app.route('/about')
-def about():
-    return 'About'
+    return 'Hello from Flask + Neon!'
 
 @app.route('/sensor')
 def sensor():
-    # Connect to the database
     try:
-        connection = get_connection()
-        print("Connection successful!")
-        
-        # Create a cursor to execute SQL queries
-        cursor = connection.cursor()
-        
-        # Example query
-        cursor.execute("SELECT * FROM sensores;")
-        result = cursor.fetchone()
-        print("Current Time:", result)
-    
-        # Close the cursor and connection
-        cursor.close()
-        connection.close()
-        return f"Current Time: {result}"
-    
+        conn = get_connection()
+        cur = conn.cursor()
+        cur.execute("SELECT NOW();")
+        result = cur.fetchone()
+        cur.close()
+        conn.close()
+        return f"✅ Database connected! Current time: {result}"
     except Exception as e:
-        return f"Failed to connect: {e}"
-
-if __name__ == "__main__":
-    app.run(debug=True)
+        return f"❌ Database connection failed: {e}"
