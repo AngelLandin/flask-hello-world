@@ -5,7 +5,7 @@ load_dotenv()
 
 app = Flask(__name__)
 
-CONNECTION_STRING = os.getenv("COIN_STRING")
+CONNECTION_STRING = os.getenv("CONN_STRING")
 
 def get_connection():
     if not CONNECTION_STRING:
