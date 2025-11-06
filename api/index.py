@@ -6,7 +6,7 @@ import os
 load_dotenv()  # Cargar las variables del archivo .env
 
 # Obtener la cadena de conexión
-CONNECTION_STRING = os.getenv("CONN_STRING")
+CONNECTION_STRING = os.getenv("COIN_STRING")
 
 app = Flask(__name__)
 
@@ -23,15 +23,23 @@ def about():
 
 @app.route('/sensor')
 def sensor():
+    # ConnecT to the database
     try:
         connection = get_connection()
+        print("Connection successful!")
+        
+        # Create a cursor to execute SQL queries
         cursor = connection.cursor()
+        
+        # Example query
         cursor.execute("SELECT NOW();")
         result = cursor.fetchone()
-
+        print("Current Time:", result)
+    
+        # Close the cursor and connection
         cursor.close()
         connection.close()
-        return f"Current Time: {result}"
-
+        return f"Current Time {result}."
+    
     except Exception as e:
-        return f"Failed to connect: {e}"
+        return f"Failed to connect: {e}
