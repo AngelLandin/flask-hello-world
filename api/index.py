@@ -6,7 +6,7 @@ import os
 load_dotenv()  # Cargar las variables del archivo .env
 
 # Obtener la cadena de conexión
-CONNECTION_STRING = os.getenv("COIN_STRING")
+CONNECTION_STRING = os.getenv("CONN_STRING")
 
 app = Flask(__name__)
 
